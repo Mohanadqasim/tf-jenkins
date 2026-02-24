@@ -1,4 +1,38 @@
-.venv/
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+crash.log
+# Uncomment if you don’t want to commit lock file
+#.terraform.lock.hcl
+
+# Docker
+*.pid
+*.log
+tmp/
+
+# Secrets
+*.pem
+*.key
+*.crt
 .env
+.env.local
+
+# Editor/OS
+.vscode/
+.DS_Store
+Thumbs.db
