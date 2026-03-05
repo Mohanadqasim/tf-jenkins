@@ -40,19 +40,21 @@ pipeline {
         stage('Deploy to App EC2') {
             steps {
                 sh '''
-        ssh ec2-user@3.127.57.236 << 'EOF'
-        aws ecr get-login-password --region eu-central-1 \
-        | docker login --username AWS --password-stdin 272493677884.dkr.ecr.eu-central-1.amazonaws.com
+                ssh -o StrictHostKeyChecking=no ec2-user@3.127.57.236 << EOF
 
-        docker pull 272493677884.dkr.ecr.eu-central-1.amazonaws.com/tf-jenkins-ecr:latest
+                aws ecr get-login-password --region eu-central-1 \
+                | docker login --username AWS --password-stdin 272493677884.dkr.ecr.eu-central-1.amazonaws.com
 
-        docker stop flask-app || true
-        docker rm flask-app || true
+                docker pull 272493677884.dkr.ecr.eu-central-1.amazonaws.com/tf-jenkins-ecr:latest
 
-        docker run -d -p 5000:5000 --name flask-app \
-        272493677884.dkr.ecr.eu-central-1.amazonaws.com/tf-jenkins-ecr:latest
-        EOF
-        '''
+                docker stop flask-app || true
+                docker rm flask-app || true
+
+                docker run -d -p 5000:5000 --name flask-app \
+                272493677884.dkr.ecr.eu-central-1.amazonaws.com/tf-jenkins-ecr:latest
+
+                EOF
+                '''
             }
         }
 
